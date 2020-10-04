@@ -4,7 +4,7 @@
 
 Just image picker
 
-Update and contiue improvement to adapter new privacy rule of new android release 
+Update and contiue improvement to adapt new privacy rule of new android release 
 
 ## Quick Start
 **ImagePicker** is availble on jitpack.
