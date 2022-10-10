@@ -1,27 +1,45 @@
 # ImagePicker
 
-[![](https://jitpack.io/v/SakaGamer/imagepicker.svg)](https://jitpack.io/#SakaGamer/imagepicker)
+[![](https://jitpack.io/v/sakacyber/imagepicker.svg)](https://jitpack.io/#sakacyber/imagepicker)
 
-Just image picker
-
-Update and contiue improvement to adapt new privacy rule of new android release 
+**Android image picker** \
+Show bottom sheet of image picker and handle app permission \
+Update and continue improvement to adapt new privacy rule of new android release
 
 ## Quick Start
-**ImagePicker** is availble on jitpack.
+
+**ImagePicker** is available on jitpack.
 
 Add dependency:
 
 ```
-implementation 'com.github.SakaGamer:imagepicker:0.1.0'
+implementation "com.github.sakacyber:imagepicker:0.1.0"
 ```
 
 ## Usage
+
 to use **ImagePicker**:
 
+Manifest.xml
+``` 
+        <application 
+        ...
+        
+            <provider
+                android:name="androidx.core.content.FileProvider"
+                android:authorities="${applicationId}.provider"
+                android:exported="false"
+                android:grantUriPermissions="true">
+                <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/ext_file_path" />
+            </provider>
+        
+         </application>
 ```
-// Single pick
-// In Activity or Fragment
 
+Single image picker
+```
 ImagePicker.Builder("here.your.fileprovider")
             .setListener(this)
             .setSpanCount(3)
@@ -29,10 +47,8 @@ ImagePicker.Builder("here.your.fileprovider")
             .show(supportFragmentManager, "picker")
 ```
 
+Multiple image picker
 ```
-// Multi pick
-// In Activity or Fragment
-
 ImagePicker.Builder("here.your.fileprovider")
             .setListener(this)
             .isMultiSelect()

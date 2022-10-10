@@ -142,7 +142,7 @@ class ImageTileAdapter(
     }
 
     open class BaseHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
-       open fun bind(position: Int) {}
+        open fun bind(position: Int) {}
     }
 
     class CameraTileHolder(
@@ -189,22 +189,24 @@ class ImageTileAdapter(
             if (!isMultiSelect) {
                 itemView.setOnClickListener(imageClickListener)
             } else {
-                itemView.setOnClickListener(View.OnClickListener {
-                    val thisFile = imageList[adapterPosition]
-                    if (selectedList.contains(thisFile)) {
-                        selectedList.remove(thisFile)
-                        notifyItemChanged(adapterPosition)
-                    } else {
-                        if (selectedList.size == maxSelectCount) {
-                            overSelectListener?.onOverSelect()
-                            return@OnClickListener
-                        } else {
-                            selectedList.add(thisFile)
+                itemView.setOnClickListener(
+                    View.OnClickListener {
+                        val thisFile = imageList[adapterPosition]
+                        if (selectedList.contains(thisFile)) {
+                            selectedList.remove(thisFile)
                             notifyItemChanged(adapterPosition)
+                        } else {
+                            if (selectedList.size == maxSelectCount) {
+                                overSelectListener?.onOverSelect()
+                                return@OnClickListener
+                            } else {
+                                selectedList.add(thisFile)
+                                notifyItemChanged(adapterPosition)
+                            }
                         }
+                        selectChangeListener?.onSelectedCountChange(selectedList.size)
                     }
-                    selectChangeListener?.onSelectedCountChange(selectedList.size)
-                })
+                )
             }
         }
     }

@@ -44,12 +44,10 @@ import java.io.Serializable
 import java.net.URI
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 /**
  * This is the core class of this library, which extends BottomSheetDialogFragment
  * from the design support library, in order to provide the basic architecture of a bottom sheet.
- *
  *
  * It is also responsible for:
  * - Handling permission
@@ -209,7 +207,8 @@ class ImagePicker : BottomSheetDialogFragment(), LoaderManager.LoaderCallbacks<C
             setupBottomBar(view)
         }
         if (savedInstanceState != null) {
-            val savedUriList: ArrayList<Uri>? = savedInstanceState.getParcelableArrayList("selectedImages")
+            val savedUriList: ArrayList<Uri>? =
+                savedInstanceState.getParcelableArrayList("selectedImages")
             if (savedUriList != null) {
                 adapter?.setSelectedFiles(savedUriList)
             }
@@ -317,7 +316,7 @@ class ImagePicker : BottomSheetDialogFragment(), LoaderManager.LoaderCallbacks<C
             index++
         }
 
-        cursor.moveToPosition(-1) //Restore cursor back to the beginning
+        cursor.moveToPosition(-1) // Restore cursor back to the beginning
         adapter?.setImageList(uriList)
         // We are not closing the cursor here because Android Doc says Loader will manage them.
 
@@ -441,16 +440,21 @@ class ImagePicker : BottomSheetDialogFragment(), LoaderManager.LoaderCallbacks<C
         ViewCompat.setTranslationZ(bottomBarView!!, ViewCompat.getZ((rootView?.parent as View)))
         parentView?.addView(bottomBarView, -2)
         bottomBarView?.findViewById<View>(R.id.multi_select_bar_bg)
-            ?.setBackgroundColor(ContextCompat.getColor(context!!, multiSelectBarBgColor))
+            ?.setBackgroundColor(ContextCompat.getColor(requireContext(), multiSelectBarBgColor))
         tvMultiSelectMessage = bottomBarView?.findViewById(R.id.tv_multi_select_message)
-        tvMultiSelectMessage?.setTextColor(ContextCompat.getColor(context!!, multiSelectTextColor))
+        tvMultiSelectMessage?.setTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                multiSelectTextColor
+            )
+        )
         tvMultiSelectMessage?.text = if (minMultiSelectCount == 1) {
             getString(R.string.title_multi_select_not_enough_singular)
         } else {
             getString(R.string.title_multi_select_not_enough_plural, minMultiSelectCount)
         }
         tvDone = bottomBarView?.findViewById(R.id.tv_multi_select_done)
-        tvDone?.setTextColor(ContextCompat.getColor(context!!, multiSelectDoneTextColor))
+        tvDone?.setTextColor(ContextCompat.getColor(requireContext(), multiSelectDoneTextColor))
         tvDone?.setOnClickListener {
             imageListener?.onMultipleSelect(adapter?.getSelectedFiles())
             dismiss()
@@ -471,7 +475,7 @@ class ImagePicker : BottomSheetDialogFragment(), LoaderManager.LoaderCallbacks<C
             tryCatch { photoFile = createImageFile() }
             if (photoFile != null) {
                 val photoURI = FileProvider.getUriForFile(
-                    context!!,
+                    requireContext(),
                     providerAuthority!!,
                     photoFile!!
                 )
@@ -502,8 +506,8 @@ class ImagePicker : BottomSheetDialogFragment(), LoaderManager.LoaderCallbacks<C
 
         //        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
         val image = File.createTempFile(
-            imageFileName,  /* prefix */
-            ".jpg",  /* suffix */
+            imageFileName, /* prefix */
+            ".jpg", /* suffix */
             storageDir /* directory */
         )
 
@@ -530,7 +534,7 @@ class ImagePicker : BottomSheetDialogFragment(), LoaderManager.LoaderCallbacks<C
         if (tvMultiSelectMessage != null) {
             tvMultiSelectMessage?.setTextColor(
                 ContextCompat.getColor(
-                    context!!,
+                    requireContext(),
                     multiSelectTextColor
                 )
             )
@@ -559,8 +563,14 @@ class ImagePicker : BottomSheetDialogFragment(), LoaderManager.LoaderCallbacks<C
 
     private fun showOverSelectMessage() {
         if (context != null) return
-        tvMultiSelectMessage?.setTextColor(ContextCompat.getColor(context!!, overSelectTextColor))
-        tvMultiSelectMessage?.text = getString(R.string.title_multi_select_over_select, maxMultiSelectCount)
+        tvMultiSelectMessage?.setTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                overSelectTextColor
+            )
+        )
+        tvMultiSelectMessage?.text =
+            getString(R.string.title_multi_select_over_select, maxMultiSelectCount)
     }
 
     /**
@@ -742,5 +752,4 @@ class ImagePicker : BottomSheetDialogFragment(), LoaderManager.LoaderCallbacks<C
         private const val ARG_MULTI_SELECT_DONE_TEXT_COLOR = "multi_select_done_text_color"
         private const val ARG_MULTI_SELECT_TEXT_COLOR = "multi_select_text_color"
     }
-
 }
