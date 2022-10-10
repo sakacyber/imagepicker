@@ -38,6 +38,11 @@ android {
         viewBinding true
         dataBinding true
     }
+
+    lint {
+        abortOnError false
+    }
+
     namespace "com.saka.android.imagepicker"
 }
 

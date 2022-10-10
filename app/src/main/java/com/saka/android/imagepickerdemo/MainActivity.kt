@@ -1,4 +1,4 @@
-package com.saka.android.imagepicker
+package com.saka.android.imagepickerdemo
 
 import android.net.Uri
 import android.os.Bundle
@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity(), MainEvent, ImagePicker.ImageListener {
     }
 
     override fun onSinglePickerClick() {
-        ImagePicker.Builder("com.saka.android.imagepicker.fileprovider")
+        ImagePicker.Builder("${packageName}.provider")
             .setListener(this)
             .setSpanCount(3)
             .build()
@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity(), MainEvent, ImagePicker.ImageListener {
     }
 
     override fun onMultiPickerClick() {
-        ImagePicker.Builder("com.saka.android.imagepicker.fileprovider")
+        ImagePicker.Builder("${packageName}.provider")
             .setListener(this)
             .isMultiSelect()
             .setSpanCount(3)
@@ -54,7 +54,8 @@ class MainActivity : AppCompatActivity(), MainEvent, ImagePicker.ImageListener {
     }
 
     override fun onSingleSelect(uri: Uri?) {
-        adapter.setImage(listOf(uri!!))
+        uri ?: return
+        adapter.setImage(listOf(uri))
     }
 
     override fun onMultipleSelect(uriList: List<Uri>?) {

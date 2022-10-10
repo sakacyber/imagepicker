@@ -1,4 +1,4 @@
-package com.saka.android.imagepicker
+package com.saka.android.imagepickerdemo
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

@@ -1,4 +1,4 @@
-package com.saka.android.imagepicker
+package com.saka.android.imagepickerdemo
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
