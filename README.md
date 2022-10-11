@@ -10,14 +10,12 @@ Update and continue improvement to adapt new privacy rule of new android release
 
 **ImagePicker** is available on jitpack.
 
-Add dependency:
-
+Add dependency: build.gradle(:app)
 ```
-implementation "com.github.sakacyber:imagepicker:0.1.0"
+implementation "com.github.sakacyber:imagepicker:0.1.2"
 ```
 
 ## Usage
-
 to use **ImagePicker**:
 
 Manifest.xml
@@ -56,4 +54,19 @@ ImagePicker.Builder("${packageName}.provider")
             .setMinSelectCount(3)
             .build()
             .show(supportFragmentManager, "picker")
+```
+
+Image picker listener 
+```
+    override fun onCancelled(isMultiSelecting: Boolean) {
+        Toast.makeText(this, "Cancel", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onSingleSelect(uri: Uri?) {
+       //
+    }
+
+    override fun onMultipleSelect(uriList: List<Uri>?) {
+       // 
+    }
 ```

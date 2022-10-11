@@ -480,11 +480,10 @@ class ImagePicker : BottomSheetDialogFragment(), LoaderManager.LoaderCallbacks<C
                     photoFile!!
                 )
                 takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                val resolvedIntentActivities =
-                    packageManager.queryIntentActivities(
-                        takePhotoIntent,
-                        PackageManager.MATCH_DEFAULT_ONLY
-                    )
+                val resolvedIntentActivities = packageManager.queryIntentActivities(
+                    takePhotoIntent,
+                    PackageManager.MATCH_DEFAULT_ONLY
+                )
                 for (resolvedIntentInfo in resolvedIntentActivities) {
                     context?.grantUriPermission(
                         resolvedIntentInfo.activityInfo.packageName,
