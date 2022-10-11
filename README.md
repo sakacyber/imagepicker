@@ -40,7 +40,7 @@ Manifest.xml
 
 Single image picker
 ```
-ImagePicker.Builder("here.your.fileprovider")
+ImagePicker.Builder("${packageName}.provider")
             .setListener(this)
             .setSpanCount(3)
             .build()
@@ -49,7 +49,7 @@ ImagePicker.Builder("here.your.fileprovider")
 
 Multiple image picker
 ```
-ImagePicker.Builder("here.your.fileprovider")
+ImagePicker.Builder("${packageName}.provider")
             .setListener(this)
             .isMultiSelect()
             .setSpanCount(3)
